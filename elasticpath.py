@@ -25,3 +25,15 @@ def get_products(access_token):
 
     response_dict = response.json()
     return response_dict
+
+
+def get_cart(access_token: str, user: str) -> dict:
+    headers = {
+        'Authorization': 'Bearer {}'.format(access_token),
+    }
+
+    response = requests.get('https://api.moltin.com/v2/carts/{}'.format(user), headers=headers)
+    response.raise_for_status()
+
+    response_dict = response.json()
+    return response_dict
