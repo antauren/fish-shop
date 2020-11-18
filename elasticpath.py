@@ -70,3 +70,15 @@ def get_product(product_id: str, access_token: str) -> dict:
 
     response_dict = response.json()
     return response_dict
+
+
+def get_file(file_id: str, access_token: str) -> dict:
+    headers = {
+        'Authorization': 'Bearer {}'.format(access_token),
+    }
+
+    response = requests.get('https://api.moltin.com/v2/files/{}'.format(file_id), headers=headers)
+    response.raise_for_status()
+
+    response_dict = response.json()
+    return response_dict
