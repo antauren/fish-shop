@@ -58,3 +58,15 @@ def add_product_to_cart(access_token: str, customer: str, product_id: str, quant
 
     response_dict = response.json()
     return response_dict
+
+
+def get_product(product_id: str, access_token: str) -> dict:
+    headers = {
+        'Authorization': 'Bearer {}'.format(access_token),
+    }
+
+    response = requests.get('https://api.moltin.com/v2/products/{}'.format(product_id), headers=headers)
+    response.raise_for_status()
+
+    response_dict = response.json()
+    return response_dict
