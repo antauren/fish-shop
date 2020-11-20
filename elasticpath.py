@@ -109,3 +109,16 @@ def get_cart_items(user, access_token):
     response.raise_for_status()
 
     return response.json()
+
+
+def remove_cart_item(user: str, product_id: str, access_token: str) -> dict:
+    # https://documentation.elasticpath.com/commerce-cloud/docs/api/carts-and-checkout/carts/cart-items/remove-cart-item.html
+
+    headers = {
+        'Authorization': 'Bearer {}'.format(access_token),
+    }
+
+    response = requests.delete('https://api.moltin.com/v2/carts/{}/items/{}'.format(user, product_id), headers=headers)
+    response.raise_for_status()
+
+    return response.json()
