@@ -82,3 +82,17 @@ def get_file(file_id: str, access_token: str) -> dict:
 
     response_dict = response.json()
     return response_dict
+
+
+def get_product_variation(variation_id: str, access_token: str) -> dict:
+    # https://documentation.elasticpath.com/commerce-cloud/docs/api/catalog/product-variations/get-a-product-variation.html
+
+    headers = {
+        'Authorization': 'Bearer {}'.format(access_token),
+    }
+
+    response = requests.get('https://api.moltin.com/v2/variations/{}'.format(variation_id), headers=headers)
+    response.raise_for_status()
+
+    response_dict = response.json()
+    return response_dict
