@@ -1,3 +1,6 @@
+# https://documentation.elasticpath.com/commerce-cloud/docs/api/
+
+
 import requests
 
 
@@ -85,8 +88,6 @@ def get_file(file_id: str, access_token: str) -> dict:
 
 
 def get_product_variation(variation_id: str, access_token: str) -> dict:
-    # https://documentation.elasticpath.com/commerce-cloud/docs/api/catalog/product-variations/get-a-product-variation.html
-
     headers = {
         'Authorization': 'Bearer {}'.format(access_token),
     }
@@ -99,8 +100,6 @@ def get_product_variation(variation_id: str, access_token: str) -> dict:
 
 
 def get_cart_items(user, access_token):
-    # https://documentation.elasticpath.com/commerce-cloud/docs/api/carts-and-checkout/carts/cart-items/get-cart-items.html
-
     headers = {
         'Authorization': 'Bearer {}'.format(access_token),
     }
@@ -112,8 +111,6 @@ def get_cart_items(user, access_token):
 
 
 def remove_cart_item(user: str, product_id: str, access_token: str) -> dict:
-    # https://documentation.elasticpath.com/commerce-cloud/docs/api/carts-and-checkout/carts/cart-items/remove-cart-item.html
-
     headers = {
         'Authorization': 'Bearer {}'.format(access_token),
     }
@@ -125,8 +122,6 @@ def remove_cart_item(user: str, product_id: str, access_token: str) -> dict:
 
 
 def create_customer(username: str, email: str, access_token: str) -> dict:
-    # https://documentation.elasticpath.com/commerce-cloud/docs/api/orders-and-customers/customers/create-a-customer.html
-
     headers = {'Authorization': 'Bearer {}'.format(access_token),
                'Content-Type': 'application/json',
                }
@@ -144,8 +139,6 @@ def create_customer(username: str, email: str, access_token: str) -> dict:
 
 
 def get_customer(username: str, access_token: str):
-    # https://documentation.elasticpath.com/commerce-cloud/docs/api/orders-and-customers/customers/get-a-customer.html
-
     headers = {'Authorization': 'Bearer {}'.format(access_token),
                }
 
