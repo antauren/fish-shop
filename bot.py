@@ -150,7 +150,7 @@ def send_email(bot, update):
     return 'WAITING_EMAIL'
 
 
-def waiting_email(bot, update, access_token):
+def handle_email(bot, update, access_token):
     username = str(update.message.chat.id)
     email = update.message.text
 
@@ -206,7 +206,7 @@ def handle_users_reply(bot, update, host, port, password, access_token):
         'SHOW_MENU': partial(show_menu, access_token=access_token),
         'SHOW_CART': partial(show_cart, access_token=access_token),
         'SEND_EMAIL': send_email,
-        'WAITING_EMAIL': partial(waiting_email, access_token=access_token),
+        'WAITING_EMAIL': partial(handle_email, access_token=access_token),
     }
     state_handler = states_functions[user_state]
 
