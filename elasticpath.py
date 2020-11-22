@@ -153,3 +153,13 @@ def get_customer(username: str, access_token: str):
     response.raise_for_status()
 
     return response.json()
+
+
+def filter_customers_by_email(email: str, access_token: str):
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
+    params = {'filter': 'eq(email,{})'.format(email)}
+
+    response = requests.get('https://api.moltin.com/v2/customers', headers=headers, params=params)
+    response.raise_for_status()
+
+    return response.json()
