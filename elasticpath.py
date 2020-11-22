@@ -122,3 +122,22 @@ def remove_cart_item(user: str, product_id: str, access_token: str) -> dict:
     response.raise_for_status()
 
     return response.json()
+
+
+def create_customer(username: str, email: str, access_token: str) -> dict:
+    # https://documentation.elasticpath.com/commerce-cloud/docs/api/orders-and-customers/customers/create-a-customer.html
+
+    headers = {'Authorization': 'Bearer {}'.format(access_token),
+               'Content-Type': 'application/json',
+               }
+
+    data = {'data': {'type': 'customer',
+                     'name': username,
+                     'email': email,
+                     }
+            }
+
+    response = requests.post('https://api.moltin.com/v2/customers', headers=headers, json=data)
+    response.raise_for_status()
+
+    return response.json()
