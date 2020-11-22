@@ -19,9 +19,7 @@ def get_access_token(client_id, client_secret):
 
 
 def get_products(access_token):
-    headers = {
-        'Authorization': 'Bearer {}'.format(access_token),
-    }
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
 
     response = requests.get('https://api.moltin.com/v2/products', headers=headers)
     response.raise_for_status()
@@ -31,9 +29,7 @@ def get_products(access_token):
 
 
 def get_cart(access_token: str, user: str) -> dict:
-    headers = {
-        'Authorization': 'Bearer {}'.format(access_token),
-    }
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
 
     response = requests.get('https://api.moltin.com/v2/carts/{}'.format(user), headers=headers)
     response.raise_for_status()
@@ -64,9 +60,7 @@ def add_product_to_cart(access_token: str, customer: str, product_id: str, quant
 
 
 def get_product(product_id: str, access_token: str) -> dict:
-    headers = {
-        'Authorization': 'Bearer {}'.format(access_token),
-    }
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
 
     response = requests.get('https://api.moltin.com/v2/products/{}'.format(product_id), headers=headers)
     response.raise_for_status()
@@ -76,9 +70,7 @@ def get_product(product_id: str, access_token: str) -> dict:
 
 
 def get_file(file_id: str, access_token: str) -> dict:
-    headers = {
-        'Authorization': 'Bearer {}'.format(access_token),
-    }
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
 
     response = requests.get('https://api.moltin.com/v2/files/{}'.format(file_id), headers=headers)
     response.raise_for_status()
@@ -88,9 +80,7 @@ def get_file(file_id: str, access_token: str) -> dict:
 
 
 def get_product_variation(variation_id: str, access_token: str) -> dict:
-    headers = {
-        'Authorization': 'Bearer {}'.format(access_token),
-    }
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
 
     response = requests.get('https://api.moltin.com/v2/variations/{}'.format(variation_id), headers=headers)
     response.raise_for_status()
@@ -100,9 +90,7 @@ def get_product_variation(variation_id: str, access_token: str) -> dict:
 
 
 def get_cart_items(user, access_token):
-    headers = {
-        'Authorization': 'Bearer {}'.format(access_token),
-    }
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
 
     response = requests.get('https://api.moltin.com/v2/carts/{}/items'.format(user), headers=headers)
     response.raise_for_status()
@@ -111,9 +99,7 @@ def get_cart_items(user, access_token):
 
 
 def remove_cart_item(user: str, product_id: str, access_token: str) -> dict:
-    headers = {
-        'Authorization': 'Bearer {}'.format(access_token),
-    }
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
 
     response = requests.delete('https://api.moltin.com/v2/carts/{}/items/{}'.format(user, product_id), headers=headers)
     response.raise_for_status()
@@ -139,8 +125,7 @@ def create_customer(username: str, email: str, access_token: str) -> dict:
 
 
 def get_customer(username: str, access_token: str):
-    headers = {'Authorization': 'Bearer {}'.format(access_token),
-               }
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
 
     response = requests.get('https://api.moltin.com/v2/customers/{}'.format(username), headers=headers)
     response.raise_for_status()
