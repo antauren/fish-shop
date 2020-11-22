@@ -141,3 +141,15 @@ def create_customer(username: str, email: str, access_token: str) -> dict:
     response.raise_for_status()
 
     return response.json()
+
+
+def get_customer(username: str, access_token: str):
+    # https://documentation.elasticpath.com/commerce-cloud/docs/api/orders-and-customers/customers/get-a-customer.html
+
+    headers = {'Authorization': 'Bearer {}'.format(access_token),
+               }
+
+    response = requests.get('https://api.moltin.com/v2/customers/{}'.format(username), headers=headers)
+    response.raise_for_status()
+
+    return response.json()
