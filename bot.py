@@ -1,5 +1,6 @@
 from functools import partial
 
+import email_validator
 import redis
 from dotenv import dotenv_values
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
@@ -153,6 +154,16 @@ def send_email(bot, update):
 def handle_email(bot, update, access_token):
     username = str(update.message.chat.id)
     email = update.message.text
+
+    try:
+        valid = email_validator.validate_email(email)
+        email = valid.email
+    except email_validator.EmailNotValidError as error:
+        bot.sendMessage(chat_id=update.message.chat.id,
+                        text='{}\n\nВведите корректный емейл адрес:'.format(error)
+                        )
+
+        return 'WAITING_EMAIL'
 
     customers = elasticpath.filter_customers_by_email(email=email, access_token=access_token)
 
