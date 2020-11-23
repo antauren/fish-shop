@@ -1,3 +1,4 @@
+import datetime as dt
 from functools import partial
 
 import email_validator
@@ -10,6 +11,8 @@ from telegram.ext import (CallbackQueryHandler, CommandHandler, Filters,
 import elasticpath
 
 _database = None
+_access_token = ''
+_datetime = dt.datetime.now() - dt.timedelta(hours=1)
 
 SEPARATOR = '-(|)-'
 
@@ -176,7 +179,7 @@ def handle_email(bot, update, access_token):
                     text='Ваш заказ зарегестрирован. Менеджер напишет Вам на емейл {} в течение часа.'.format(email))
 
 
-def handle_users_reply(bot, update, host, port, password, access_token):
+def handle_users_reply(bot, update, host, port, password, access_token, client_id, client_secret):
     """
     Функция, которая запускается при любом сообщении от пользователя и решает как его обработать.
 
@@ -210,6 +213,13 @@ def handle_users_reply(bot, update, host, port, password, access_token):
         user_state = 'SEND_EMAIL'
     else:
         user_state = db.get(chat_id).decode('utf-8')
+
+    global _access_token
+    if dt.datetime.now() - _datetime > dt.timedelta(minutes=50):
+        # access_token expires after 1 hour
+        _access_token = elasticpath.get_access_token(client_id, client_secret)
+
+        access_token = _access_token
 
     states_functions = {
         'HANDLE_MENU': partial(show_product, access_token=access_token),
@@ -254,6 +264,10 @@ if __name__ == '__main__':
                                    port=db_port,
                                    password=db_password,
                                    access_token=access_token,
+
+                                   client_id=client_id,
+                                   client_secret=client_secret,
+
                                    )
 
     token = env_values['TELEGRAM_TOKEN']
