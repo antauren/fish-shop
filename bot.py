@@ -77,6 +77,7 @@ def show_menu(bot, update, access_token):
     keyboard = [
         [InlineKeyboardButton(product['name'], callback_data=product['id'])]
         for product in products
+        if product['status'] == 'live'
     ]
     keyboard.append(
         [InlineKeyboardButton('Корзина', callback_data='cart')]
