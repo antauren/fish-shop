@@ -179,7 +179,7 @@ def handle_email(bot, update, access_token):
                     text='Ваш заказ зарегестрирован. Менеджер напишет Вам на емейл {} в течение часа.'.format(email))
 
 
-def handle_users_reply(bot, update, host, port, password, access_token, client_id, client_secret):
+def handle_users_reply(bot, update, host, port, password, client_id, client_secret):
     """
     Функция, которая запускается при любом сообщении от пользователя и решает как его обработать.
 
@@ -219,15 +219,13 @@ def handle_users_reply(bot, update, host, port, password, access_token, client_i
         # access_token expires after 1 hour
         _access_token = elasticpath.get_access_token(client_id, client_secret)
 
-        access_token = _access_token
-
     states_functions = {
-        'HANDLE_MENU': partial(show_product, access_token=access_token),
-        'HANDLE_DESCRIPTION': partial(handle_description, access_token=access_token),
-        'SHOW_MENU': partial(show_menu, access_token=access_token),
-        'SHOW_CART': partial(show_cart, access_token=access_token),
+        'HANDLE_MENU': partial(show_product, access_token=_access_token),
+        'HANDLE_DESCRIPTION': partial(handle_description, access_token=_access_token),
+        'SHOW_MENU': partial(show_menu, access_token=_access_token),
+        'SHOW_CART': partial(show_cart, access_token=_access_token),
         'SEND_EMAIL': send_email,
-        'WAITING_EMAIL': partial(handle_email, access_token=access_token),
+        'WAITING_EMAIL': partial(handle_email, access_token=_access_token),
     }
     state_handler = states_functions[user_state]
 
@@ -257,17 +255,13 @@ if __name__ == '__main__':
     db_host = env_values['DATABASE_HOST']
     db_port = env_values['DATABASE_PORT']
 
-    access_token = elasticpath.get_access_token(client_id, client_secret)
-
     p_handle_users_reply = partial(handle_users_reply,
                                    host=db_host,
                                    port=db_port,
                                    password=db_password,
-                                   access_token=access_token,
 
                                    client_id=client_id,
                                    client_secret=client_secret,
-
                                    )
 
     token = env_values['TELEGRAM_TOKEN']
