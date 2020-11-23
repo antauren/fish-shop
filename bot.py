@@ -24,7 +24,7 @@ def show_product(bot, update, access_token):
 
     price_text = '{} {}'.format(product['price'][0]['amount'], product['price'][0]['currency'])
 
-    text = '{}\n\n{}\n{}\n\n{}'.format(
+    text = '{}\n\n{}\n{} кг\n\n{}'.format(
         product['name'],
         price_text,
         product['weight']['kg'],
