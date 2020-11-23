@@ -19,7 +19,7 @@ MVP версия проекта позволяет:
 - Создайте базу данных в [RedisLabs](https://redislabs.com/)
 - Создайте бота [Telegram messenger](https://web.telegram.org/#/login)
 
-- Установить [Python3](python.org/downloads)
+- Установить [Python3](https://www.python.org/downloads/)
 - Установите зависимости:
     ```
     pip install -r requirements.txt
