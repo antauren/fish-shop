@@ -33,7 +33,10 @@ def show_product(bot, update, access_token):
 
     keyboard = [
         [
-            InlineKeyboardButton('{} кг'.format(amount), callback_data=SEPARATOR.join([product['id'], product['name'], str(amount)]))
+            InlineKeyboardButton('{} кг'.format(amount), callback_data=SEPARATOR.join([product['id'],
+                                                                                       product['name'],
+                                                                                       str(amount)]
+                                                                                      ))
             for amount in range(1, 6)
         ],
         [
