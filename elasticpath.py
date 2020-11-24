@@ -14,8 +14,7 @@ def get_access_token(client_id, client_secret):
     response = requests.post('https://api.moltin.com/oauth/access_token', data=data)
     response.raise_for_status()
 
-    response_dict = response.json()
-    return response_dict['access_token']
+    return response.json()['access_token']
 
 
 def get_products(access_token):
@@ -24,8 +23,7 @@ def get_products(access_token):
     response = requests.get('https://api.moltin.com/v2/products', headers=headers)
     response.raise_for_status()
 
-    response_dict = response.json()
-    return response_dict
+    return response.json()
 
 
 def get_cart(access_token: str, user: str) -> dict:
@@ -34,8 +32,7 @@ def get_cart(access_token: str, user: str) -> dict:
     response = requests.get('https://api.moltin.com/v2/carts/{}'.format(user), headers=headers)
     response.raise_for_status()
 
-    response_dict = response.json()
-    return response_dict
+    return response.json()
 
 
 def add_product_to_cart(access_token: str, customer: str, product_id: str, quantity: int):
@@ -55,8 +52,7 @@ def add_product_to_cart(access_token: str, customer: str, product_id: str, quant
     response = requests.post('https://api.moltin.com/v2/carts/{}/items'.format(customer), headers=headers, json=data)
     response.raise_for_status()
 
-    response_dict = response.json()
-    return response_dict
+    return response.json()
 
 
 def get_product(product_id: str, access_token: str) -> dict:
@@ -65,8 +61,7 @@ def get_product(product_id: str, access_token: str) -> dict:
     response = requests.get('https://api.moltin.com/v2/products/{}'.format(product_id), headers=headers)
     response.raise_for_status()
 
-    response_dict = response.json()
-    return response_dict
+    return response.json()
 
 
 def get_file(file_id: str, access_token: str) -> dict:
@@ -75,8 +70,7 @@ def get_file(file_id: str, access_token: str) -> dict:
     response = requests.get('https://api.moltin.com/v2/files/{}'.format(file_id), headers=headers)
     response.raise_for_status()
 
-    response_dict = response.json()
-    return response_dict
+    return response.json()
 
 
 def get_product_variation(variation_id: str, access_token: str) -> dict:
@@ -85,8 +79,7 @@ def get_product_variation(variation_id: str, access_token: str) -> dict:
     response = requests.get('https://api.moltin.com/v2/variations/{}'.format(variation_id), headers=headers)
     response.raise_for_status()
 
-    response_dict = response.json()
-    return response_dict
+    return response.json()
 
 
 def get_cart_items(user, access_token):
