@@ -1,4 +1,3 @@
-import datetime as dt
 from functools import partial
 
 import email_validator
@@ -11,9 +10,6 @@ from telegram.ext import (CallbackQueryHandler, CommandHandler, Filters,
 import elasticpath
 
 _database = None
-_access_token = ''
-_datetime = dt.datetime.now() - dt.timedelta(hours=1)
-_token_expires_in = 0
 
 SEPARATOR = '-(|)-'
 
@@ -219,15 +215,7 @@ def handle_users_reply(bot, update, host, port, password, client_id, client_secr
     else:
         user_state = db.get(chat_id).decode('utf-8')
 
-    global _access_token
-    global _token_expires_in
-    global _datetime
-    if dt.datetime.now() - _datetime > dt.timedelta(seconds=_token_expires_in):
-        # access_token expires after 1 hour
-        access_token_dict = elasticpath.get_access_token(client_id, client_secret)
-        _access_token = access_token_dict['access_token']
-        _token_expires_in = access_token_dict['expires_in']
-        _datetime = dt.datetime.now()
+    _access_token = elasticpath.get_current_access_token(client_id, client_secret)
 
     states_functions = {
         'HANDLE_MENU': partial(show_product, access_token=_access_token),

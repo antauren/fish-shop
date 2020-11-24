@@ -1,7 +1,28 @@
 # https://documentation.elasticpath.com/commerce-cloud/docs/api/
 
+import datetime as dt
 
 import requests
+
+_access_token = ''
+_datetime = dt.datetime.now() - dt.timedelta(hours=1)
+_token_expires_in = 0
+
+
+def get_current_access_token(client_id: str, client_secret: str) -> str:
+    global _access_token
+    global _token_expires_in
+    global _datetime
+
+    if dt.datetime.now() - _datetime > dt.timedelta(seconds=_token_expires_in):
+        access_token_dict = get_access_token(client_id, client_secret)
+
+        _access_token = access_token_dict['access_token']
+        _token_expires_in = access_token_dict['expires_in']
+
+        _datetime = dt.datetime.now()
+
+    return _access_token
 
 
 def get_access_token(client_id: str, client_secret: str) -> dict:
