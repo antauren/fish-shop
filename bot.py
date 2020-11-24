@@ -215,15 +215,15 @@ def handle_users_reply(bot, update, host, port, password, client_id, client_secr
     else:
         user_state = db.get(chat_id).decode('utf-8')
 
-    _access_token = elasticpath.get_current_access_token(client_id, client_secret)
+    access_token = elasticpath.get_access_token(client_id, client_secret)
 
     states_functions = {
-        'HANDLE_MENU': partial(show_product, access_token=_access_token),
-        'HANDLE_DESCRIPTION': partial(handle_description, access_token=_access_token),
-        'SHOW_MENU': partial(show_menu, access_token=_access_token),
-        'SHOW_CART': partial(show_cart, access_token=_access_token),
+        'HANDLE_MENU': partial(show_product, access_token=access_token),
+        'HANDLE_DESCRIPTION': partial(handle_description, access_token=access_token),
+        'SHOW_MENU': partial(show_menu, access_token=access_token),
+        'SHOW_CART': partial(show_cart, access_token=access_token),
         'SEND_EMAIL': send_email,
-        'WAITING_EMAIL': partial(handle_email, access_token=_access_token),
+        'WAITING_EMAIL': partial(handle_email, access_token=access_token),
     }
     state_handler = states_functions[user_state]
 
