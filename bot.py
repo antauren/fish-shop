@@ -22,7 +22,7 @@ def show_product(bot, update, access_token):
 
     product = elasticpath.get_product(product_id=query.data, access_token=access_token)['data']
 
-    price_text = '{} {}'.format(product['price'][0]['amount'], product['price'][0]['currency'])
+    price_text = elasticpath.get_product_display_price(product)['formatted']
 
     text = '{}\n\n{}\n{} кг\n\n{}'.format(
         product['name'],
@@ -129,8 +129,8 @@ def show_cart(bot, update, access_token):
 
     text = 'Корзина:\n'
     for product in products['data']:
-        formatted_value = product['meta']['display_price']['with_tax']['value']['formatted']
-        formatted_unit = product['meta']['display_price']['with_tax']['unit']['formatted']
+        formatted_value = elasticpath.get_product_display_price(product)['value']['formatted']
+        formatted_unit = elasticpath.get_product_display_price(product)['unit']['formatted']
 
         text += '\nтовар: {}\nцена: {}\nколичество: {}\nсумма: {}\n'.format(product['name'],
                                                                             formatted_unit,

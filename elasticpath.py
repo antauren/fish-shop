@@ -134,3 +134,7 @@ def filter_customers_by_email(email: str, access_token: str):
     response.raise_for_status()
 
     return response.json()
+
+
+def get_product_display_price(product: dict) -> dict:
+    return product['meta']['display_price']['with_tax']
