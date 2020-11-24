@@ -4,7 +4,7 @@
 import requests
 
 
-def get_access_token(client_id, client_secret):
+def get_access_token(client_id: str, client_secret: str) -> dict:
     data = {
         'client_id': client_id,
         'client_secret': client_secret,
@@ -14,7 +14,7 @@ def get_access_token(client_id, client_secret):
     response = requests.post('https://api.moltin.com/oauth/access_token', data=data)
     response.raise_for_status()
 
-    return response.json()['access_token']
+    return response.json()
 
 
 def get_products(access_token):

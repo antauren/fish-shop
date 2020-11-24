@@ -13,6 +13,7 @@ import elasticpath
 _database = None
 _access_token = ''
 _datetime = dt.datetime.now() - dt.timedelta(hours=1)
+_token_expires_in = 0
 
 SEPARATOR = '-(|)-'
 
@@ -219,9 +220,14 @@ def handle_users_reply(bot, update, host, port, password, client_id, client_secr
         user_state = db.get(chat_id).decode('utf-8')
 
     global _access_token
-    if dt.datetime.now() - _datetime > dt.timedelta(minutes=50):
+    global _token_expires_in
+    global _datetime
+    if dt.datetime.now() - _datetime > dt.timedelta(seconds=_token_expires_in):
         # access_token expires after 1 hour
-        _access_token = elasticpath.get_access_token(client_id, client_secret)
+        access_token_dict = elasticpath.get_access_token(client_id, client_secret)
+        _access_token = access_token_dict['access_token']
+        _token_expires_in = access_token_dict['expires_in']
+        _datetime = dt.datetime.now()
 
     states_functions = {
         'HANDLE_MENU': partial(show_product, access_token=_access_token),
