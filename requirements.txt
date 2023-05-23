@@ -1,5 +1,5 @@
 python-dotenv==0.15.0
-requests==2.25.0
+requests==2.31.0
 python-telegram-bot==11.1.0
 redis==3.2.1
 email-validator==1.1.2
